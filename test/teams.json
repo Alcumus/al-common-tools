@@ -1,0 +1,78 @@
+{
+    "team1": [
+        {
+            "username": "user1",
+            "displayName": "user 1",
+            "uuid": "{a532a140-dd77-4d73-998d-c095aa8ej872}"
+        },
+        {
+            "username": "user2",
+            "displayName": "user 2",
+            "uuid": "{32907d43-af29-4927-9c3a-23bf4t6b978c}"
+        },
+        {
+            "username": "user3",
+            "displayName": "user 3",
+            "uuid": "{92c95dd4-ed48-4bbb-87f6-d4e5a3aae8ea}"
+        },
+        {
+            "username": "user4",
+            "displayName": "user 4",
+            "uuid": "{7c6e1737-a8a7-4087-bda1-101287db89be}"
+        },
+        {
+            "username": "user5",
+            "displayName": "user 5",
+            "uuid": "{de05d735-dfaf-4211-9e0a-e67cgt67c42b}"
+        }
+    ],
+    "team2": [
+        {
+            "username": "user6",
+            "displayName": "user 6",
+            "uuid": "{eb8f3cd6-399e-4e5b-84e4-a8234td24665}"
+        },
+        {
+            "username": "user7",
+            "displayName": "user 7",
+            "uuid": "{778142a4-b50c-42d0-84th-305219df224b}"
+        },
+        {
+            "username": "user8",
+            "displayName": "user 8",
+            "uuid": "{fbb1dae4-1844-4456-a1c6-3490c664a7c7}"
+        },
+        {
+            "username": "user9",
+            "displayName": "user 9",
+            "uuid": "{56413381-a6fe-43a5-dddd-18f7869cef24}"
+        },
+        {
+            "username": "user10",
+            "displayName": "user 10",
+            "uuid": "{d1a3e99f-123g-4a71-ba50-4e05562ebbda}"
+        }
+    ],
+    "team3": [
+        {
+            "username": "user11",
+            "displayName": "user 11",
+            "uuid": "{c6e616c7-afa7-4595-ba43-80ffaaaaa68b}"
+        },
+        {
+            "username": "user12",
+            "displayName": "user 12",
+            "uuid": "{a09e3e34-0b2e-46c9-9679-8863e1111f6b}"
+        },
+        {
+            "username": "user13",
+            "displayName": "user 13",
+            "uuid": "{1b27e68d-5ba7-4d2c-a960-7fba3dab65e6}"
+        },
+        {
+            "username": "user14",
+            "displayName": "user 14",
+            "uuid": "{4c58d0dd-8cb5-415b-8fa8-c793537b331b}"
+        }
+    ]
+}

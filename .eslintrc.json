@@ -1,0 +1,6 @@
+{
+    "extends": [
+        "./node_modules/alcumus-linting-rules/resources/linting/eslint/default.js"
+    ],
+    "root": true
+}
