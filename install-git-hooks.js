@@ -26,7 +26,9 @@ const buildBundle = async (directories, hook) => {
         input: path.join(directories.hooksSource, hook),
         external: [],
         plugins: [
-            resolve(),
+            resolve({
+                preferBuiltins: true
+            }),
             commonJs(),
             executable()
         ]
