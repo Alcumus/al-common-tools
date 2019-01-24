@@ -1,6 +1,6 @@
 {
   "name": "al-common-tools",
-  "version": "0.0.12",
+  "version": "0.0.10",
   "description": "Common tools for automation etc. to be shared among projects.",
   "main": "index.js",
   "bin": {
@@ -23,9 +23,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://tsaevareid_alcumusgroup@bitbucket.org/alcumusit/common-tools.git"
-  },
-  "publishConfig": {
-    "registry": "https://verdaccio.alcumusgroup.net"
   },
   "author": "",
   "license": "ISC",
