@@ -66,8 +66,8 @@ extended later. At present, this will ensure that the project passes linting bef
 future this will be extended to include unit tests passing if present etc. In addition to this, a report can be
 generated that will be attached to the PR itself. At the moment this just compares linting pre-PR and post-PR, but can
 be extended to show changes in code coverage, etc. In addition to this the command allows an easy way of inviting
-people by name or by team. In order to create Bitbucket PRs, appropriate credentials must be available in `config.json`.
-The `config.json` structure is as follows:
+people by name or by team. In order to create Bitbucket PRs, appropriate credentials must be available in `~/al-tools.credentials.json`.
+The `~/al-tools.credentials.json` structure is as follows:
 
 > **Note:**
 > 
@@ -98,7 +98,7 @@ npx pr -r thor # invite Thor to be a reviewer (this will be matched against both
 npx pr -r pippin mark # invite all of team Pippin and Mark Gabb to be a reviewer.
 ```
 
-Any number of reviewers can be added and additional groupings can easily be added by changing the `./teams.json` file
+Any number of reviewers can be added and additional groupings can easily be added by changing the `teams.json` file in the S3 bucket `al-automation`.
 
 NOTE: Currently `npx pr` is a short form of `npx pr create`. Additional commands (such as `npx pr update` may be created
 in the future).

@@ -85,8 +85,8 @@ const getSummaryFromVerificationResults = results => {
     return summary;
 };
 
-const getReviewerNames = reviewerIds => {
-    const teams = _.flatten(Object.values(require('../../../test/teams.json')));
+const getReviewerNames = (teamsConfig, reviewerIds) => {
+    const teams = _.flatten(Object.values(teamsConfig));
     return reviewerIds.map(reviewerId => {
         const reviewer = teams.find(teamMember => teamMember.uuid === reviewerId.uuid);
         return _.get(reviewer, 'displayName', reviewerId);
@@ -95,6 +95,8 @@ const getReviewerNames = reviewerIds => {
 
 const createPullRequest = async (cliParameters) => {
     await prepareCliParameters(cliParameters);
+    const teams = await pullRequests.getTeams(cliParameters);
+
     const verificationResults = await verifyProjectState(cliParameters);
     const verificationSummary = getSummaryFromVerificationResults(verificationResults);
 
@@ -118,11 +120,11 @@ const createPullRequest = async (cliParameters) => {
 
     const [request, result] = await session.createPullRequest(pullRequest);
     if (cliParameters.dryRun) {
-        request._body.reviewers = getReviewerNames(request._body.reviewers);
+        request._body.reviewers = getReviewerNames(teams, request._body.reviewers);
         console.info('Would have created PR', util.inspect(request, { depth: 10, colors: true }));
     } else {
         console.info('Created PR', _.get(result, 'data.links.html.href'));
-        console.info('Invited reviewers:\n', getReviewerNames(request._body.reviewers).join('\n'));
+        console.info('Invited reviewers:\n', getReviewerNames(teams, request._body.reviewers).join('\n'));
     }
     return result;
 };

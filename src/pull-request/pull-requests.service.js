@@ -13,7 +13,7 @@ const getTeams = async (config) => {
     if (teamsCache) {
         return teamsCache;
     }
-    teamsCache = await request(config.teamsUrl || 'https://s3.eu-west-2.amazonaws.com/al-automation/teams.json');
+    teamsCache = await request({ uri: config.teamsUrl || 'https://s3.eu-west-2.amazonaws.com/al-automation/teams.json', json: true });
     teamsCache.all = Object.values(teamsCache).reduce(_.ary(_.union, 2), []);
     return teamsCache;
 };
@@ -151,6 +151,7 @@ const authenticate = (authentication) => {
 };
 
 module.exports = {
-    authenticate
+    authenticate,
+    getTeams
 };
 
