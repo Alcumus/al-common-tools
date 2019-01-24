@@ -1,6 +1,6 @@
 {
   "name": "al-common-tools",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Common tools for automation etc. to be shared among projects.",
   "main": "common-cli.js",
   "bin": {
