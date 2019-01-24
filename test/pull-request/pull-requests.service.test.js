@@ -39,7 +39,7 @@ describe('Pull requests service', () => {
 
         const compareMatch = _.curry(async(matchStrings, expectedResults, testUserId, exclude = null) => {
             const functionName = testUserId ? 'getUserIds' : 'getUsers';
-            let results = await pullRequestService[functionName](matchStrings, exclude);
+            let results = await pullRequestService[functionName]({}, matchStrings, exclude);
             if (testUserId) {
                 expectedResults = expectedResults.map(result => result.uuid);
             } else {

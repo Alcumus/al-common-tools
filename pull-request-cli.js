@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs');
+const configHelper = require('./src/helpers/config-helper');
 
-try {
-    const config = require('./config.json');
-    yargs.config(config);
-} catch (error) {
-    // Ignore.
-}
+configHelper.load()
+    .then(config => {
+        yargs.config(config);
 
-yargs
-    .commandDir('src/commands/pull-request')
-    .demandCommand()
-    .help()
-    .argv;
+        return yargs
+            .commandDir('src/commands/pull-request')
+            .demandCommand()
+            .help()
+            .argv;
+    });

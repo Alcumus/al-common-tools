@@ -9,11 +9,11 @@ fs.writeFile = promisify(fs.writeFile);
 
 let teamsCache;
 
-const getTeams = async () => {
+const getTeams = async (config) => {
     if (teamsCache) {
         return teamsCache;
     }
-    teamsCache = await request('https://s3.eu-west-2.amazonaws.com/al-automation/teams.json');
+    teamsCache = await request(config.teamsUrl || 'https://s3.eu-west-2.amazonaws.com/al-automation/teams.json');
     teamsCache.all = Object.values(teamsCache).reduce(_.ary(_.union, 2), []);
     return teamsCache;
 };
@@ -54,8 +54,8 @@ const authenticate = (authentication) => {
         }
     }
 
-    const getUsers = async (matches, exclude) => {
-        const teams = await getTeams();
+    const getUsers = async (config, matches, exclude) => {
+        const teams = await getTeams(config);
         const filterExcludedUsers = user => exclude ? user.username !== exclude : true;
         const requiredUsers = teams.all
             .filter(filterUser(replaceTeamsWithUsers(teams, matches)))
@@ -67,7 +67,7 @@ const authenticate = (authentication) => {
         return requiredUsers.concat(randomUsers);
     };
 
-    const getUserIds = async (users, exclude) => (await getUsers(users, exclude)).map(user => user.uuid);
+    const getUserIds = async (config, users, exclude) => (await getUsers(config, users, exclude)).map(user => user.uuid);
 
     const createPullRequest = ({ owner, title, repositorySlug, sourceBranch, destinationBranch, reviewers, description, dryRun = false }) => {
         reviewers = reviewers.map(reviewer => typeof reviewer === 'string' ? { uuid: reviewer } : reviewer);

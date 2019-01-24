@@ -99,7 +99,7 @@ const createPullRequest = async (cliParameters) => {
     const verificationSummary = getSummaryFromVerificationResults(verificationResults);
 
     const session = pullRequests.authenticate(cliParameters.bitbucket);
-    const reviewers = await session.getUserIds(cliParameters.reviewers, cliParameters.bitbucket.username);
+    const reviewers = await session.getUserIds(cliParameters, cliParameters.reviewers, cliParameters.bitbucket.username);
     const projectName = cliParameters.workingDirectory.replace(/.*\//, '');
     const repositorySlug = await session.getRepositorySlug(cliParameters.owner, projectName);
 
