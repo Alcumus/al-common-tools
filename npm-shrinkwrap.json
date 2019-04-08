@@ -276,9 +276,9 @@
       }
     },
     "alcumus-linting-rules": {
-      "version": "0.0.4",
-      "resolved": "https://verdaccio.alcumusgroup.net/alcumus-linting-rules/-/alcumus-linting-rules-0.0.4.tgz",
-      "integrity": "sha512-mBp5AuWOhtmW3K49jnGxlg+l/vYsd8Z2vDujusf5uzhbaPjSj9Ry9BW9nlVrtbo6KCxfekkhtSmAOr2uBKwq/Q=="
+      "version": "0.0.5",
+      "resolved": "https://registry.npmjs.org/alcumus-linting-rules/-/alcumus-linting-rules-0.0.5.tgz",
+      "integrity": "sha512-ponnLm0M2uvO3y4um1A829K1IazP9TLanQ6lMy9t49ZyBUMGV8XpPZjnWdznKyS7VVmOrIb6R3d3z9hsYTwjiw=="
     },
     "angular-tslint-rules": {
       "version": "1.5.0",
