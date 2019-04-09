@@ -1,5 +1,5 @@
 {
-  "name": "al-common-tools",
+  "name": "@alcumus/common-tools",
   "version": "0.0.16",
   "lockfileVersion": 1,
   "requires": true,
