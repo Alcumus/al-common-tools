@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 
-const lintingRules = require('.src/linting/linting-rules.js');
+const lintingRules = require('./src/linting/linting-rules.js');
 
 fs.writeFile = promisify(fs.writeFile);
 
