@@ -25,7 +25,7 @@ module.exports = {
     }],
     getRules: (linter) => {
         linter = linter.name || linter;
-        const linterDirectory = `${__dirname}/${linter}`;
+        const linterDirectory = `${__dirname}/resources/${linter}`;
         const relativePath = path.relative(process.cwd(), linterDirectory);
         return fs.readdir(linterDirectory)
             .then(files => files
