@@ -27,9 +27,9 @@
     "access": "public"
   },
   "dependencies": {
+    "@alcumus/linting-rules": "0.0.6",
     "@angular/compiler": "^6.1.10",
     "@angular/core": "^6.1.10",
-    "alcumus-linting-rules": "0.0.5",
     "angular-tslint-rules": "^1.5.0",
     "bitbucket": "^1.4.0",
     "chai": "^4.2.0",
