@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 
-const lintingRules = require('alcumus-linting-rules');
+const lintingRules = require('./linting-rules.js');
 
 fs.writeFile = promisify(fs.writeFile);
 
@@ -74,9 +74,20 @@ const getRulesObject = requestedRules => existingRules => {
 };
 
 const writeRulesFile = (linter, directory) => rules => {
+    let config = {};
+    const configFilePath = path.join(directory, linter.configFile);
+
+    try {
+        config = JSON.parse(fs.readFileSync(configFilePath));
+    } catch (err) {
+        console.warn('No existing config found for', configFilePath);
+    }
+
+    Object.assign(config, rules);
+
     return fs.writeFile(
-        path.join(directory, linter.configFile),
-        JSON.stringify(rules, null, 4)
+        configFilePath,
+        JSON.stringify(config, null, 4)
     );
 };
 
