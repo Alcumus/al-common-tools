@@ -86,7 +86,7 @@ const writeRulesFile = (linter, directory) => rules => {
     Object.assign(config, rules);
 
     return fs.writeFile(
-        path.join(directory, linter.configFile),
+        configFilePath,
         JSON.stringify(config, null, 4)
     );
 };
