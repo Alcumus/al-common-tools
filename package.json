@@ -12,13 +12,13 @@
     "publish-new": "./publish-cli.js"
   },
   "scripts": {
-    "fix": "eslint 'src/**/*.js' '*.js' --fix && tslint 'src/**/*.ts' '*.ts' --fix",
+    "fix": "eslint 'src/**/*.js' '*.js'--fix",
     "install-git-hooks": "./install-git-hooks.js",
-    "lint": "eslint 'src/**/*.js' '*.js' && tslint 'src/**/*.ts' '*.ts'",
+    "lint": "eslint 'src/**/*.js' '*.js'",
     "pr": "./pull-request-cli.js",
     "publish-new": "./publish-cli.js",
     "test": "mocha 'test/**/*.test.js'",
-    "watch": "nodemon --ext ts,html,scss,js,json --exec \"npm run lint || exit 1\""
+    "watch": "nodemon --ext html,scss,js,json --exec \"npm run lint || exit 1\""
   },
   "author": "AlcumusGroup",
   "license": "ISC",
@@ -27,37 +27,30 @@
     "access": "public"
   },
   "dependencies": {
-    "@angular/compiler": "^6.1.10",
-    "@angular/core": "^6.1.10",
-    "angular-tslint-rules": "^1.5.0",
     "bitbucket": "^1.4.0",
     "chai": "^4.2.0",
-    "codelyzer": "^4.5.0",
     "eslint": "^5.7.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-hooks": "0.0.0",
     "jira-connector": "^2.9.0",
     "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.18.7",
     "request-promise-native": "^1.0.5",
-    "stylelint": "^9.6.0",
-    "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.3.1",
-    "title-case": "^2.1.1",
-    "tslint": "^5.11.0",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.1.3",
-    "yargs": "^12.0.2"
-  },
-  "devDependencies": {
-    "mkdirp": "^0.5.1",
-    "mocha": "^5.2.0",
-    "proxyquire": "^2.1.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.1.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-executable": "^1.4.3",
     "rollup-plugin-node-resolve": "^4.0.0",
+    "stylelint": "^10.0.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.3.1",
+    "title-case": "^2.1.1",
+    "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "proxyquire": "^2.1.0",
     "sinon": "^7.2.2"
   }
 }

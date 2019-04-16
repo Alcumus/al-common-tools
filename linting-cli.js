@@ -15,20 +15,17 @@ const checkLinterAlias = (linter, alias, args, matchedLinters) => {
 };
 
 const linterAliases = {
-    angular: 'tslint',
-    ng: 'tslint',
     style: { name: 'stylelint', remove: true }
 };
 
 const getLinters = (args) => {
     const linterNames = lintingRules.linters.map(linter => linter.name);
-    const defaultLinters = linterNames.filter(linter => linter !== 'tslint');
     const matchedLinters = _.intersection(args, linterNames);
     _.forEach(linterAliases, (linter, alias) => checkLinterAlias(linter, alias, args, matchedLinters));
     if (matchedLinters.length > 0) {
         return matchedLinters;
     }
-    return defaultLinters;
+    return linterNames;
 };
 
 const args = process.argv.slice(2).map(argument => argument.toLowerCase());

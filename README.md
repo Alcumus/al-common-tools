@@ -7,17 +7,14 @@ All changes to this project should be published under a new version number.
 To use this project, first install using `npm i --save-dev alcumus-common-tools`, then use the provided binaries to install what you need. For example:
 
 ```bash
-npx common # install the most common options needed (eslint, tslint, .editorconfig, git hooks, etc.).
-npx linting # install eslint and tslint.
-npx linting angular # (or npx linting ng) install linters needed for angular projects.
+npx common # install the most common options needed (eslint, .editorconfig, git hooks, etc.).
+npx linting # install eslint.
 npx linting react # install linters needed for react projects
 npx editor-config # install just .editorconfig file.
 npx git-hooks # NOT YET IMPLEMENTED: this will install the common git hooks to the project.
 ```
 
-**_NOTE: These commands will overwrite eachother in case of conflicts. For example npx common will overwrite the results of npx linting angular._**
-
-`npx common` forwards any parameters it receives to all of the other commands it triggers so `npx common angular` will call `npx linting angular`.
+`npx common` forwards any parameters it receives to all of the other commands it triggers so `npx common eslint` will call `npx linting eslint`.
 
 These commands should create very minimal files within your current project
 (a symlink where appropriate, a simple config file that just extends the ones from this project elsewhere).
