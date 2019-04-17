@@ -15,10 +15,6 @@ module.exports = {
         configFile: '.eslintrc.json',
         fileMatcher: '"src/**/*.js" "test/**/*.js" "*.js"'
     }, {
-        name: 'tslint',
-        configFile: 'tslint.json',
-        fileMatcher: '--project ./tsconfig.json "src/**/*.ts" "*.ts"'
-    }, {
         name: 'stylelint',
         configFile: '.stylelintrc.json',
         fileMatcher: '"src/**/*.scss" "*.scss"'

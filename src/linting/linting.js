@@ -101,7 +101,7 @@ const addLinter = (linterName, directory, requestedRules = []) => {
         );
     }
 
-    requestedRules = requestedRules.map(rule => rule.toLowerCase() === 'ng' ? 'angular' : rule.toLowerCase());
+    requestedRules = requestedRules.map(rule => rule.toLowerCase());
     return lintingRules.getRules(linter)
         .then(getRulesObject(requestedRules))
         .then(writeRulesFile(linter, directory));

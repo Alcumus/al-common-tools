@@ -1,6 +1,0 @@
-{
-    "extends": [
-        "resources/linting/tslint/default.js"
-    ],
-    "root": true
-}
