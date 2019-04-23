@@ -12,14 +12,14 @@ const series = async (...commands) => {
     }
 };
 
-const execute = async () => {
+let tagName = '';
+
+const generateTagName = async () => {
     const currentBranch = await branchHelper.getCurrentBranch(__dirname);
     const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
 
     const packageJSON = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, 'utf8'));
     const currentVersion = _.get(packageJSON, 'version');
-
-    let tagName = '';
 
     if (currentVersion.includes(branchName) && currentVersion.match(/.*[0-9]+-[0-9]+$/) ){
         tagName = currentVersion.replace(/\d+$/, (i) => parseInt(i) + 1);
@@ -34,28 +34,30 @@ const execute = async () => {
         if(err) {
             return console.error(err);
         }
-
         console.info('Package Json version updated to version ' + tagName);
     });
 };
-
-// execute()
-//     .then(() => console.info('YAY'))
-//     .catch(error => console.error('BOO', error));
 
 series(
     ['git', 'update-index', '--refresh'],
     ['git', 'fetch'],
     ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
-    // ['npm', 'publish', '--tag', tagName],
-    //
-    //
-    // ['git', 'tag', '-am', `Release of version ${tagName}`, tagName],
-    // ['npm', '--no-git-tag-version', 'version', ...versionArguments],
-    // ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${version}.`],
-    // ['git', 'push'],
-    // ['git', 'push', 'origin', tagName]
 ).catch(error => {
     console.error(error);
     process.exit(1);
-});
+}).then(() => generateTagName())
+    .then(() => {
+        console.info('YAY');
+        series(
+            ['npm', 'publish', '--tag', tagName],
+            ['git', 'tag', '-am', `Release of version ${tagName}`, tagName],
+            ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${tagName}.`],
+            ['git', 'push'],
+            ['git', 'push', 'origin', tagName]
+        ).catch(error => {
+            console.error(error);
+            process.exit(1);
+        });
+        console.info('Please update hestia-server package.json to use al-hestia version ' + tagName);
+    })
+    .catch(error => console.error('BOO', error));

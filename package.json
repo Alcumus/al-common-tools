@@ -1,5 +1,5 @@
 {
-  "name": "@alcumus/common-tools",
+  "name": "@alcumus/testing-script",
   "version": "0.0.20",
   "description": "Common tools for automation etc. to be shared among projects.",
   "main": "common-cli.js",
