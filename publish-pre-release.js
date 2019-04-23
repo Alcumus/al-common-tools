@@ -16,8 +16,7 @@ let tagName = '';
 
 const generateTagName = async () => {
     const currentBranch = await branchHelper.getCurrentBranch(__dirname);
-    // const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
-    const branchName = 'HF563';
+    const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
 
     const packageJSON = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, 'utf8'));
     const currentVersion = _.get(packageJSON, 'version');
