@@ -39,9 +39,9 @@ const execute = async () => {
     });
 };
 
-execute()
-    .then(() => console.info('YAY'))
-    .catch(error => console.error('BOO', error));
+// execute()
+//     .then(() => console.info('YAY'))
+//     .catch(error => console.error('BOO', error));
 
 series(
     ['git', 'update-index', '--refresh'],
