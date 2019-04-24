@@ -57,8 +57,9 @@ series(
             ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
             ['git', 'push'],
-            ['git', 'push', 'origin', tagName]
-        ).finally(console.log('finished')).catch(error => {
+            ['git', 'push', 'origin', tagName],
+            console.log('finished')
+        ).catch(error => {
             console.error(error);
             process.exit(1);
         });
