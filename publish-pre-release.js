@@ -43,9 +43,9 @@ const generateTagName = async () => {
 };
 
 series(
-    // ['git', 'update-index', '--refresh'],
-    // ['git', 'fetch'],
-    // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+    ['git', 'update-index', '--refresh'],
+    ['git', 'fetch'],
+    ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
 ).catch(error => {
     console.error(error);
     process.exit(1);
