@@ -53,7 +53,7 @@ series(
     .then(() => {
         console.info('YAY');
         series(
-            ['npm', 'publish', '--tag', ticketAndVersion],
+            ['npm', 'publish', '--tag', ticketAndVersion, '--registry', 'https://verdaccio.alcumus.local'],
             ['git', 'tag', '-am', `Release of version ${tagName}`, ticketAndVersion],
             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${tagName}.`],
             ['git', 'push'],
