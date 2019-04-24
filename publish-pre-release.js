@@ -12,8 +12,8 @@ const series = async (...commands) => {
     }
 };
 
+let newVersion = '';
 let tagName = '';
-let ticketAndVersion = '';
 
 const generateTagName = async () => {
     const currentBranch = await branchHelper.getCurrentBranch(__dirname);
@@ -23,22 +23,22 @@ const generateTagName = async () => {
     const currentVersion = _.get(packageJSON, 'version');
 
     if (currentVersion.includes(branchName) && currentVersion.match(/.*[0-9]+-[0-9]+$/) ){
-        tagName = currentVersion.replace(/\d+$/, (i) => parseInt(i) + 1);
+        newVersion = currentVersion.replace(/\d+$/, (i) => parseInt(i) + 1);
     }
     else{
-        tagName = currentVersion + '-' + branchName + '-1';
+        newVersion = currentVersion + '-' + branchName + '-1';
     }
 
-    packageJSON.version = tagName;
+    packageJSON.version = newVersion;
 
     fs.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageJSON, null, 2), function(err) {
         if(err) {
             return console.error(err);
         }
-        console.info('Package Json version updated to version ' + tagName);
+        console.info('Package Json version updated to version ' + newVersion);
     });
 
-    ticketAndVersion = tagName.substring(tagName.indexOf('-')+1);
+    tagName = newVersion.substring(newVersion.indexOf('-')+1);
 
 };
 
@@ -53,14 +53,14 @@ series(
     .then(() => {
         console.info('YAY');
         series(
-            ['npm', 'publish', '--tag', ticketAndVersion, '--registry', 'https://verdaccio.alcumus.local'],
-            ['git', 'tag', '-am', `Release of version ${tagName}`, ticketAndVersion],
-            ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${tagName}.`],
+            ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
+            ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
+            ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
             ['git', 'push'],
-            ['git', 'push', 'origin', ticketAndVersion]
+            ['git', 'push', 'origin', tagName]
         ).catch(error => {
             console.error(error);
             process.exit(1);
         });
-        console.info('Please update hestia-server package.json to use al-hestia version ' + tagName);
-    }).then(() => console.info('FINISHED')).catch(error => console.error('BOO', error));
+        console.info('finished')
+    }).catch(error => console.error('Publish was unsuccessful', error));
