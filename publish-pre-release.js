@@ -58,9 +58,8 @@ series(
             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
             ['git', 'push'],
             ['git', 'push', 'origin', tagName]
-        ).catch(error => {
+        ).finally(console.log('finished')).catch(error => {
             console.error(error);
             process.exit(1);
         });
-        console.info('finished')
     }).catch(error => console.error('Publish was unsuccessful', error));
