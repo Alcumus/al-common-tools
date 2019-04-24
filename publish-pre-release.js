@@ -62,5 +62,5 @@ series(
             console.error(error);
             process.exit(1);
         });
-    }).then(() => console.info('Please update hestia-server package.json to use al-hestia version ' + tagName))
-    .catch(error => console.error('BOO', error));
+        console.info('Please update hestia-server package.json to use al-hestia version ' + tagName);
+    }).catch(error => console.error('BOO', error));
