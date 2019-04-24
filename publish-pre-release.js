@@ -43,9 +43,9 @@ const generateTagName = async () => {
 };
 
 series(
-    ['git', 'update-index', '--refresh'],
-    ['git', 'fetch'],
-    ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+    // ['git', 'update-index', '--refresh'],
+    // ['git', 'fetch'],
+    // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
 ).catch(error => {
     console.error(error);
     process.exit(1);
@@ -63,4 +63,4 @@ series(
             process.exit(1);
         });
         console.info('Please update hestia-server package.json to use al-hestia version ' + tagName);
-    }).catch(error => console.error('BOO', error));
+    }).then(() => console.info('FINISHED')).catch(error => console.error('BOO', error));
