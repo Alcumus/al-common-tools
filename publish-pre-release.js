@@ -42,24 +42,55 @@ const generateTagName = async () => {
 
 };
 
-series(
-    // ['git', 'update-index', '--refresh'],
-     ['git', 'fetch'],
-    // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
-    ['git', 'merge', 'master']
-).catch(error => {
-    console.error(error);
-    process.exit(1);
-}).then(() => generateTagName())
-    .then( () => {
-        series (
-            ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
-            ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
-            ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
-            ['git', 'push'],
-            ['git', 'push', 'origin', tagName]
-        ).catch(error => {
-            console.error(error);
-            process.exit(1);
-        });
-    }).catch(error => console.error('Publish was unsuccessful', error));
+const setupGitBranch = async  () => {
+    await series(
+        // ['git', 'update-index', '--refresh'],
+        ['git', 'fetch'],
+        // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+        ['git', 'merge', 'master']
+    ).catch(error => {
+        console.error(error);
+        process.exit(1);
+    });
+};
+
+const publishVersion = async  () => {
+    series (
+        ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
+        ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
+        ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
+        ['git', 'push'],
+        ['git', 'push', 'origin', tagName]
+    ).catch(error => {
+        console.error(error);
+        process.exit(1);
+    });
+};
+
+setupGitBranch()
+    .then(() => generateTagName())
+    .then(() => publishVersion())
+    .then(() => console.info('success'))
+    .catch(error => console.error('Publish was unsuccessful', error));
+
+// series(
+//     // ['git', 'update-index', '--refresh'],
+//      ['git', 'fetch'],
+//     // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+//     ['git', 'merge', 'master']
+// ).catch(error => {
+//     console.error(error);
+//     process.exit(1);
+// }).then(() => generateTagName())
+//     .then( () => {
+//         series (
+//             ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
+//             ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
+//             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
+//             ['git', 'push'],
+//             ['git', 'push', 'origin', tagName]
+//         ).catch(error => {
+//             console.error(error);
+//             process.exit(1);
+//         });
+//     }).catch(error => console.error('Publish was unsuccessful', error));
