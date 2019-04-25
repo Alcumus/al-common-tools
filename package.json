@@ -1,6 +1,6 @@
 {
   "name": "@alcumus/common-tools",
-  "version": "0.0.20-HF-563-22",
+  "version": "0.0.20-HF-563-23",
   "description": "Common tools for automation etc. to be shared among projects.",
   "main": "common-cli.js",
   "bin": {

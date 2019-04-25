@@ -31,7 +31,7 @@ const generateTagName = async () => {
 
     packageJSON.version = newVersion;
 
-    fs.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageJSON, null, 2), function(err) {
+    fs.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageJSON, null, 2).concat('\n'), function(err) {
         if(err) {
             return console.error(err);
         }
@@ -43,9 +43,9 @@ const generateTagName = async () => {
 
 const setupGitBranch = async  () => {
     await series(
-        ['git', 'update-index', '--refresh'],
+        // ['git', 'update-index', '--refresh'],
         ['git', 'fetch'],
-        ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+        // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
         ['git', 'merge', 'master']
     ).catch(error => {
         console.error(error);
