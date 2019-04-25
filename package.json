@@ -10,7 +10,7 @@
     "linting": "./linting-cli.js",
     "pr": "./pull-request-cli.js",
     "publish-new": "./publish-cli.js",
-    "publish-pre-release": "publish-pre-release-cli.js"
+    "publish-pre-release": "./publish-pre-release-cli.js"
   },
   "scripts": {
     "fix": "eslint 'src/**/*.js' '*.js'--fix",
