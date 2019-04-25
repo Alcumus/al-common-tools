@@ -39,14 +39,13 @@ const generateTagName = async () => {
     });
 
     tagName = newVersion.substring(newVersion.indexOf('-')+1);
-
 };
 
 const setupGitBranch = async  () => {
     await series(
-        // ['git', 'update-index', '--refresh'],
+        ['git', 'update-index', '--refresh'],
         ['git', 'fetch'],
-        // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+        ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
         ['git', 'merge', 'master']
     ).catch(error => {
         console.error(error);
@@ -72,25 +71,3 @@ setupGitBranch()
     .then(() => publishVersion())
     .then(() => console.info(`Publish was successful, please change your package.json to use al-hestia version ${newVersion}`))
     .catch(error => console.error('Publish was unsuccessful', error));
-
-// series(
-//     // ['git', 'update-index', '--refresh'],
-//      ['git', 'fetch'],
-//     // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
-//     ['git', 'merge', 'master']
-// ).catch(error => {
-//     console.error(error);
-//     process.exit(1);
-// }).then(() => generateTagName())
-//     .then( () => {
-//         series (
-//             ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
-//             ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
-//             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
-//             ['git', 'push'],
-//             ['git', 'push', 'origin', tagName]
-//         ).catch(error => {
-//             console.error(error);
-//             process.exit(1);
-//         });
-//     }).catch(error => console.error('Publish was unsuccessful', error));
