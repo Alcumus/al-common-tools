@@ -18,7 +18,7 @@
     "lint": "eslint 'src/**/*.js' '*.js'",
     "pr": "./pull-request-cli.js",
     "publish-new": "./publish-cli.js",
-    "publish-pre-release": "./publish-pre-release.js",
+    "publish-pre-release": "./publish-pre-release-cli.js",
     "test": "mocha 'test/**/*.test.js'",
     "watch": "nodemon --ext html,scss,js,json --exec \"npm run lint || exit 1\""
   },
