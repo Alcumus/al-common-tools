@@ -55,7 +55,7 @@ const setupGitBranch = async  () => {
 };
 
 const publishVersion = async  () => {
-    series (
+    await series (
         ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
         ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
         ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
