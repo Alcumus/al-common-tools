@@ -70,7 +70,7 @@ const publishVersion = async  () => {
 setupGitBranch()
     .then(() => generateTagName())
     .then(() => publishVersion())
-    .then(() => console.info('success'))
+    .then(() => console.info(`Publish was successful, please change your package.json to use version  ${newVersion}`))
     .catch(error => console.error('Publish was unsuccessful', error));
 
 // series(
