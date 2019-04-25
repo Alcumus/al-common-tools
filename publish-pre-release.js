@@ -44,21 +44,20 @@ const generateTagName = async () => {
 
 series(
     // ['git', 'update-index', '--refresh'],
-    // ['git', 'fetch'],
+     ['git', 'fetch'],
     // ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
+    ['git', 'merge', 'master']
 ).catch(error => {
     console.error(error);
     process.exit(1);
 }).then(() => generateTagName())
-    .then(() => {
-        console.info('YAY');
-        series(
+    .then( () => {
+        series (
             ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
             ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
             ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
             ['git', 'push'],
-            ['git', 'push', 'origin', tagName],
-            console.log('finished')
+            ['git', 'push', 'origin', tagName]
         ).catch(error => {
             console.error(error);
             process.exit(1);
