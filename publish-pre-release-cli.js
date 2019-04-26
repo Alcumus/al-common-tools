@@ -14,12 +14,13 @@ const series = async (...commands) => {
 
 let newVersion = '';
 let tagName = '';
+const packageJsonPath = `${process.cwd()}/package.json`;
+const packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
 const generateTagName = async () => {
     const currentBranch = await branchHelper.getCurrentBranch(__dirname);
     const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
 
-    const packageJSON = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, 'utf8'));
     const currentVersion = _.get(packageJSON, 'version');
 
     if (currentVersion.includes(branchName) && currentVersion.match(/.*[0-9]+-[0-9]+$/) ){
@@ -29,16 +30,18 @@ const generateTagName = async () => {
         newVersion = currentVersion + '-' + branchName + '-1';
     }
 
+    tagName = newVersion.substring(newVersion.indexOf('-')+1);
+};
+
+const updateJSONVersion = () => {
     packageJSON.version = newVersion;
 
-    fs.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageJSON, null, 2).concat('\n'), function(err) {
+    fs.writeFile(packageJsonPath, JSON.stringify(packageJSON, null, 2).concat('\n'), function(err) {
         if(err) {
             return console.error(err);
         }
         console.info('Package Json version updated to version ' + newVersion);
     });
-
-    tagName = newVersion.substring(newVersion.indexOf('-')+1);
 };
 
 const setupGitBranch = async  () => {
@@ -56,8 +59,8 @@ const setupGitBranch = async  () => {
 const publishVersion = async  () => {
     await series (
         ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
-        ['git', 'tag', '-am', `Release of version ${newVersion}`, tagName],
-        ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${newVersion}.`],
+        ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
+        ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after pre-release of version ${newVersion}.`],
         ['git', 'push'],
         ['git', 'push', 'origin', tagName]
     ).catch(error => {
@@ -68,6 +71,7 @@ const publishVersion = async  () => {
 
 setupGitBranch()
     .then(() => generateTagName())
+    .then(() => updateJSONVersion())
     .then(() => publishVersion())
     .then(() => console.info(`Publish was successful, please change your package.json to use al-hestia version ${newVersion}`))
     .catch(error => console.error('Publish was unsuccessful', error));
