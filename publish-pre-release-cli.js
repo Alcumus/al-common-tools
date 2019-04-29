@@ -58,7 +58,7 @@ const setupGitBranch = async  () => {
 
 const publishVersion = async  () => {
     await series (
-        ['npm', 'publish', '--tag', tagName, '--registry', 'https://verdaccio.alcumus.local'],
+        ['npm', 'publish', '--tag', tagName],
         ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
         ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after pre-release of version ${newVersion}.`],
         ['git', 'push'],
@@ -73,5 +73,5 @@ setupGitBranch()
     .then(() => generateTagName())
     .then(() => updateJSONVersion())
     .then(() => publishVersion())
-    .then(() => console.info(`Publish was successful, please change your package.json to use al-hestia version ${newVersion}`))
+    .then(() => console.info(`Publish was successful, ${newVersion}`))
     .catch(error => console.error('Publish was unsuccessful', error));
