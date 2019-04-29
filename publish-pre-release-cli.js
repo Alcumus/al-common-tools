@@ -17,13 +17,9 @@ let tagName = '';
 const packageJsonPath = `${process.cwd()}/package.json`;
 const packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-const getBranchName = async () => {
-    const currentBranch = await branchHelper.getCurrentBranch(__dirname);
-    return branchHelper.getTicketNumberFromBranch(currentBranch);
-};
-
 const generateTagName = async () => {
-    const branchName = await getBranchName();
+    const currentBranch = await branchHelper.getCurrentBranch(__dirname);
+    const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
 
     const currentVersion = _.get(packageJSON, 'version');
 
@@ -69,7 +65,7 @@ const publishVersion = async () => {
 
 const rollBack = async () => {
     await series (
-        ['git', 'reset', '--hard', `origin/${await getBranchName()}`],
+        ['git', 'reset', '--hard', `origin/${await branchHelper.getCurrentBranch(__dirname)}`],
         ['git', 'tag', '-d', tagName]
     ).catch(error => {
         console.error(error);
