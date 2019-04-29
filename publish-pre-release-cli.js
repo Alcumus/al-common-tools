@@ -81,4 +81,5 @@ setupGitBranch()
     .catch(async (error) => {
         console.error('Publish was unsuccessful', error);
         await rollBack();
+        console.error('Completed rollback after error', error);
     });
