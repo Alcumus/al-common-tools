@@ -39,6 +39,12 @@ To publish changes you've made (and tested locally), just run `npm run publish-n
 well as bumping the version number ready for the next change. For major version changes, first change `package.json` to have the correct
 version number, then run `npm run publish-new`.
 
+## Publishing pre-relase
+
+To publish a pre-release version of changes you've made (and tested locally), just run `npm run publish-pre-release`. This will publish a pre-release version to verdaccio using the
+version defined in the package json and current branch number in the following format: version-branch-publishVersion (e.g. 0.1.10-HF-563-1) it will then increment
+the publish version for each subsequent run of the pre-release job.
+
 ## Using on Windows
 
 Usage on Windows should be the same as usage on Mac, except that it must be run as an administrator (run your IDE or CMD itself as admin).
