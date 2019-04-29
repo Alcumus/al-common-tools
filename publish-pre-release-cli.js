@@ -54,10 +54,7 @@ const setupGitBranch = async () => {
         ['git', 'fetch'],
         ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
         ['git', 'merge', 'master']
-    ).catch(error => {
-        console.error(error);
-        process.exit(1);
-    });
+    );
 };
 
 const publishVersion = async () => {
@@ -67,10 +64,7 @@ const publishVersion = async () => {
         ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after pre-release of version ${newVersion}.`],
         ['git', 'push'],
         ['git', 'push', 'origin', tagName]
-    ).catch(error => {
-        console.error(error);
-        process.exit(1);
-    });
+    );
 };
 
 const rollBack = async () => {
