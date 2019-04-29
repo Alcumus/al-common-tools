@@ -17,9 +17,13 @@ let tagName = '';
 const packageJsonPath = `${process.cwd()}/package.json`;
 const packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-const generateTagName = async () => {
+const getBranchName = async () => {
     const currentBranch = await branchHelper.getCurrentBranch(__dirname);
-    const branchName = branchHelper.getTicketNumberFromBranch(currentBranch);
+    return branchHelper.getTicketNumberFromBranch(currentBranch);
+};
+
+const generateTagName = async () => {
+    const branchName = await getBranchName();
 
     const currentVersion = _.get(packageJSON, 'version');
 
@@ -44,7 +48,7 @@ const updateJSONVersion = () => {
     });
 };
 
-const setupGitBranch = async  () => {
+const setupGitBranch = async () => {
     await series(
         ['git', 'update-index', '--refresh'],
         ['git', 'fetch'],
@@ -56,7 +60,7 @@ const setupGitBranch = async  () => {
     });
 };
 
-const publishVersion = async  () => {
+const publishVersion = async () => {
     await series (
         ['npm', 'publish', '--tag', tagName],
         ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
@@ -69,9 +73,22 @@ const publishVersion = async  () => {
     });
 };
 
+const rollBack = async () => {
+    await series (
+        ['git', 'reset', '--hard', `origin/${await getBranchName()}`],
+        ['git', 'tag', '-d', tagName]
+    ).catch(error => {
+        console.error(error);
+        process.exit(1);
+    });
+};
+
 setupGitBranch()
     .then(() => generateTagName())
     .then(() => updateJSONVersion())
     .then(() => publishVersion())
     .then(() => console.info(`Publish was successful, ${newVersion}`))
-    .catch(error => console.error('Publish was unsuccessful', error));
+    .catch(async (error) => {
+        console.error('Publish was unsuccessful', error);
+        await rollBack();
+    });
