@@ -50,7 +50,10 @@ const setupGitBranch = async () => {
         ['git', 'fetch'],
         ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
         ['git', 'merge', 'master']
-    );
+    ).catch(error => {
+        console.error(error);
+        process.exit(1);
+    });
 };
 
 const publishVersion = async () => {
