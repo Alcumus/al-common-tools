@@ -57,7 +57,7 @@ const setupGitBranch = async () => {
 };
 
 const publishVersion = async () => {
-    const npmcmd = os.platform() === 'win32' ? 'npm.cmd' : 'npm'
+    const npmcmd = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
     await series (
         [npmcmd, 'publish', '--tag', tagName],
         ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
