@@ -58,7 +58,7 @@ const setupGitBranch = async () => {
 
 const publishVersion = async () => {
     await series (
-        ['npm', 'publish', '--tag', tagName],
+        ['npm.cmd', 'publish', '--tag', tagName],
         ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
         ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after pre-release of version ${newVersion}.`],
         ['git', 'push'],
