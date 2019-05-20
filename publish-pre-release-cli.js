@@ -2,8 +2,8 @@
 
 const _ = require('lodash');
 const fs = require('fs');
+const os = require('os');
 const branchHelper = require('./src/helpers/branch-helper');
-
 const { runShellVerbose } = require('./run.js');
 
 const series = async (...commands) => {
@@ -57,8 +57,12 @@ const setupGitBranch = async () => {
 };
 
 const publishVersion = async () => {
+    var npmcmd = 'npm'
+    if(os.platform() === 'win32'){
+       var npmcmd = 'npm.cmd'
+    }
     await series (
-        ['npm.cmd', 'publish', '--tag', tagName],
+        [npmcmd, 'publish', '--tag', tagName],
         ['git', 'tag', '-am', `Pre-release of version ${newVersion}`, tagName],
         ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after pre-release of version ${newVersion}.`],
         ['git', 'push'],
