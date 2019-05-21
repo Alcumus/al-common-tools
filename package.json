@@ -1,6 +1,6 @@
 {
   "name": "@alcumus/common-tools",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Common tools for automation etc. to be shared among projects.",
   "main": "common-cli.js",
   "bin": {
@@ -17,8 +17,8 @@
     "install-git-hooks": "./install-git-hooks.js",
     "lint": "eslint 'src/**/*.js' '*.js'",
     "pr": "./pull-request-cli.js",
-    "publish-new": "./publish-cli.js",
-    "publish-pre-release": "./publish-pre-release-cli.js",
+    "publish-new": "node ./publish-cli.js",
+    "publish-pre-release": "node ./publish-pre-release-cli.js",
     "test": "mocha 'test/**/*.test.js'",
     "watch": "nodemon --ext html,scss,js,json --exec \"npm run lint || exit 1\""
   },
