@@ -21,7 +21,7 @@ series(
     ['git', 'update-index', '--refresh'],
     ['git', 'fetch'],
     ['git', 'diff-index', '--quiet', 'HEAD', '--'], // Ensure there are no local changes.
-    ['npm', 'publish'],
+    [npmcmd, 'publish'],
     ['git', 'tag', '-am', `Release of version ${version}`, tagName],
     [npmcmd, '--no-git-tag-version', 'version', ...versionArguments],
     ['git', 'commit', '-am', `[AUTOMATED] Updating version numbers after release of version ${version}.`],
